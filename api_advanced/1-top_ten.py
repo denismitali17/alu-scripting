@@ -4,7 +4,7 @@
 import requests
 
 
-def top_ten(subreddit):
+def top_ten(python):
     """Main function"""
     URL = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
 
@@ -14,5 +14,5 @@ def top_ten(subreddit):
         HOT_POSTS = RESPONSE.json().get("data").get("children")
         [print(post.get('data').get('title')) for post in HOT_POSTS]
     except Exception:
-        print("OK")
+        print(None)
 
