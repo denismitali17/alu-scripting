@@ -1,36 +1,17 @@
 #!/usr/bin/python3
-"""
-Module to query Reddit API and print titles of the first 10 hot posts
-for a given subreddit.
-"""
+"""Return the number of subscribers of a given subreddit"""
 
 import requests
 
-def top_ten(subreddit):
-    """
-    Prints the titles of the first 10 hot posts listed for a given subreddit.
 
-    Args:
-        subreddit (str): The subreddit to query.
+def number_of_subscribers(subreddit):
+    """function that fetches number_of_subscribers"""
+    URL = "https://www.reddit.com/r/{}/about.json".format(subreddit)
+    HEADERS = {"User-Agent": "PostmanRuntime/7.35.0"}
 
-    Returns:
-        None
-    """
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {'User-Agent': 'Python/requests:top_ten:v1.0.0 (by /u/yourusername)'}
-    params = {'limit': 10}
+    try:
+        RESPONSE = requests.get(URL, headers=HEADERS, allow_redirects=False)
+        return RESPONSE.json().get("data").get("subscribers")
 
-    response = requests.get(url, headers=headers, params=params, allow_redirects=False)
-
-    if response.status_code == 200:
-        data = response.json()
-        posts = data.get('data', {}).get('children', [])
-        for post in posts:
-            print(post['data']['title'])
-    else:
-        print(None)
-
-# Example usage:
-# top_ten('python')  # For an existing subreddit
-# top_ten('nonexistentsubreddit')  # For a non-existent subreddit
-
+    except Exception:
+        return 0
