@@ -15,3 +15,9 @@ def top_ten(subreddit):
         [print(post.get('data').get('title')) for post in HOT_POSTS]
     except Exception:
         print(None)
+
+    # Test with existing subreddit
+top_ten("python")
+
+    # Test with non-existing subreddit
+top_ten("nonexistingsubreddit12345")
